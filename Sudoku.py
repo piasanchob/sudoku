@@ -1,14 +1,14 @@
 from random import randint
 
-tablerosudoku = [[0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0],
-                 [0,0,0,0,0,0,0,0,0]]
+
+
+
+    
+    
+
+
+    
+          
 
 facil1 = [[0,0,0,2,6,0,7,0,1],
           [6,8,0,0,7,0,0,9,0],
@@ -19,6 +19,7 @@ facil1 = [[0,0,0,2,6,0,7,0,1],
           [0,0,9,3,0,0,0,7,4],
           [0,4,0,0,5,0,0,3,6],
           [7,0,3,0,1,8,0,0,0]]
+
 
 facil2 = [[2,0,0,3,0,0,0,0,0],
           [8,0,4,0,6,2,0,0,3],
@@ -134,14 +135,14 @@ solucionmedio3 = [[5,1,9,6,2,3,8,4,7],
                   [2,4,5,8,6,1,7,3,9],
                   [1,3,7,4,9,5,2,8,6]]
 
-dificil1: [[2,0,0,0,0,1,4,0,0],
-          [7,0,0,0,9,0,0,0,0],
-          [0,3,0,0,5,6,0,0,2],
-          [0,7,0,2,1,8,5,0,6],
-          [1,0,2,0,0,5,9,3,0],
-          [6,0,0,0,8,0,0,0,0],
-          [9,0,0,5,0,3,8,0,0],
-          [4,1,8,0,2,0,0,6,5]]
+dif =  [[2,0,0,0,0,1,4,0,0],
+        [7,0,0,0,9,0,0,0,0],
+        [0,3,0,0,5,6,0,0,2],
+        [0,7,0,2,1,8,5,0,6],
+        [1,0,2,0,0,5,9,3,0],
+        [6,0,0,0,8,0,0,0,0],
+        [9,0,0,5,0,3,8,0,0],
+        [4,1,8,0,2,0,0,6,5]]
 
 soluciondificl1 = [[2,9,6,8,7,1,4,5,3],
                    [7,4,5,3,9,2,6,8,1],
@@ -183,33 +184,60 @@ dificil3 = [[7,0,0,0,0,8,0,0,1],
             [0,2,0,0,0,0,0,1,0],
             [1,0,0,8,0,0,0,0,4]]
 
-diccfacil = {1:facil1,2:facil2,3:facil3}
-diccmedio = {1:medio1,2:medio2,3:medio3}
-#diccdificil = {1:dificil1,2:dificil2,3:dificil3}
-matriz = diccfacil[randint(1,3)]
-def lineas(matriz,pos):
-    n = matriz.index()
+
+def columnas(matriz,pos):
+    global col
+    col = []
+    for fila in matriz:
+        for num in fila:
+            if fila.index(num) == pos[1]:
+                col += [num]
+   
+    return col
+
+def filas(matriz,pos):
+    global fila
+    for fila in matriz:
+        if matriz[pos[0]] == fila:
+            break
+    
+    return fila 
+    
     
 
-def cuadrantes(matriz):
-    pass
 
-def moversudoku(matriz):
-    pass
     
     
 
-
-
-
-
-def moversudoku():
-    if num in matriz:
-        pass
-
     
-num = int(input("numero"))
-pos = tuple(input("agregue dos numeros de pos"))
-
-
-          
+def moversudoku(matriz,e,pos,col,fila):
+    if e not in col:
+        if e not in fila:
+            for f in matriz:
+                if matriz.index(f) == pos[0]:
+                   if matriz[pos[0]][pos[1]]==0:
+                       matriz[pos[0]].remove(0)
+                        
+                       f.insert(pos[1],e)
+    else:
+        print("messagebox error")
+    
+while True == True:
+    diccfacil = {1:facil1,2:facil2,3:facil3}
+    diccmedio = {1:medio1,2:medio2,3:medio3}
+    diccdificil = {1:dif,2:dificil2,3:dificil3}
+    matriz = diccfacil[randint(1,3)]
+    print(matriz)
+    e = int(input("numero"))
+    pos1 = int(input("agregue un numero"))
+    pos2 = int(input("agrgue otro"))
+    pos = []
+    pos += [pos1]
+    pos += [pos2]
+    
+   
+    filas(matriz,pos)
+    columnas(matriz,pos)
+    moversudoku(matriz,e,pos,col,fila)
+    print(matriz)
+    
