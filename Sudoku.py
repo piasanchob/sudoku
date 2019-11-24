@@ -204,7 +204,52 @@ def filas(matriz,pos):
     return fila 
     
     
+def cuadrantes(matriz,pos):
+    x = pos[0] 
+    y = pos[1] 
+    cuadrante = []
+    if x in [0,1,2] and y in [0,1,2]:
+        i = range(0,3)
+        j = range(0,3)
+    elif x in [3,4,5] and y in [0,1,2]:
+        i = range(3,6)
+        j = range(0,3)
+    elif x in [6,7,8] and y in [0,1,2]:
+        i = range(6,9)
+        j = range(0,3)
+    elif x in [0,1,2] and y in [3,4,5]:
+        i = range(0,3)
+        j = range(3,6)
+    elif x in [3,4,5] and y in [3,4,5]:
+        i = range(3,6)
+        j = range(3,6)
+    elif x in [6,7,8] and y in [3,4,5]:
+        i = range(6,9)
+        j = range(3,6)
+    elif x in [0,1,2] and y in [6,7,8]:
+        i = range(0,3)
+        j = range(6,9)
+    elif x in [3,4,5] and y in [6,7,8]:
+        i = range(3,6)
+        j = range(6,9)
+    elif x in [6,7,8] and y in [6,7,8]:
+        i = range(6,9)
+        j = range(6,9)
 
+
+    for indice in i:
+        for indice2 in j:
+            cuadrante.append(matriz[indice][indice2])
+
+    return cuadrante
+        
+                
+                   
+                    
+
+                    
+                        
+                
 
     
     
@@ -213,12 +258,13 @@ def filas(matriz,pos):
 def moversudoku(matriz,e,pos,col,fila):
     if e not in col:
         if e not in fila:
-            for f in matriz:
-                if matriz.index(f) == pos[0]:
-                   if matriz[pos[0]][pos[1]]==0:
-                       matriz[pos[0]].remove(0)
+            if e not in cuadrante:
+                for f in matriz:
+                    if matriz.index(f) == pos[0]:
+                       if matriz[pos[0]][pos[1]]==0:
+                           matriz[pos[0]].remove(0)
                         
-                       f.insert(pos[1],e)
+                           f.insert(pos[1],e)
     else:
         print("messagebox error")
     
