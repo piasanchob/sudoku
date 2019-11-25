@@ -578,6 +578,7 @@ def window():
 def crearMatrixfacil():
     diccfacil = {1:facil1,2:facil2,3:facil3}
     global matrix
+    global solucion
     matrix = diccfacil[random.randint(1,3)]
     if matrix == facil1:
         solucion = solucionfacil1
@@ -764,39 +765,52 @@ def cuadrantes(matriz,pos):
 
     
 def moversudoku(matrix,e,pos,col,fila,cuadrante):
-    #global e
-    #global pos
-    #global col
-    #global fila
-    #global cuadrante
-    if e not in col and e not in fila and e not in cuadrante:
-        
-        for f in matrix:
-            if matrix.index(f) == pos[0]:
-               
-                   matrix[pos[0]].remove(matrix[pos[0]][pos[1]])
-                
-                   f.insert(pos[1],e)
-                   #mover_matriz(ventana_principal,matrix)
-                   botones(ventana_principal,matrix)
-                   print("llego")
+    if perder(matrix) == True:
+        if e not in col and e not in fila and e not in cuadrante:
+            for f in matrix:
+                if matrix.index(f) == pos[0]:
+                    matrix[pos[0]].remove(matrix[pos[0]][pos[1]])
+                    
+                    f.insert(pos[1],e)
+                       #mover_matriz(ventana_principal,matrix)
+                    botones(ventana_principal,matrix)
+                    print("llego")
                            
-    else:
-        messagebox.showinfo("Error", "número no puede ir ahí")
-
+        else:
+            messagebox.showinfo("Error", "número no puede ir ahí")
+        
+    
+   
     
 
+    else:
+        if matrix == solucion:
+             messagebox.showinfo("Felicidades", "usted ha ganado")
+            
+def perder(matrix):
+    for linea in matrix:
+        if 0 not in linea:
+                continue
+        else:
+            print("tiene ceros")
+            return True
+            #global cont
+            break
+    else:
+        print("perdio")
+        return False
+        
 
-def perder():
+"""def perder():
     if 0 not in matrix:
         if matrix == solucion:
             messagebox.showinfo("Felicidades", "usted ha ganado")
         else:
-            messagebox.showinfo("Perdió","puede continuar o ver la solucion")
+            messagebox.showinfo("Perdió","puede continuar o ver la solucion")"""
 
 
 
-    moversudoku(ventana_principal, matrix,e,pos,col,fila)
+    #moversudoku(ventana_principal, matrix,e,pos,col,fila)
     
 #Formatea la hora en formato horas minutos y segundos
 
