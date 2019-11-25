@@ -218,16 +218,25 @@ soluciondificil2 = [[9,5,7,6,1,3,2,8,4],
                     [2,9,1,4,3,6,8,7,5],
                     [7,3,6,1,8,5,4,2,9]]
 
-dificil3 = [[7,0,0,0,0,8,0,0,1],
-            [0,1,0,0,0,0,0,3,0],
-            [0,0,0,1,5,0,0,0,9],
-            [0,0,0,0,6,0,0,0,7],
-            [2,0,0,0,1,0,0,0,0],
-            [5,0,0,0,0,0,1,2,6],
-            [3,6,8,0,0,0,0,0,0],
-            [0,2,0,0,0,0,0,1,0],
-            [1,0,0,8,0,0,0,0,4]]
+dificil3 = [[8,0,0,0,0,0,6,4,9],
+            [9,4,0,0,0,2,0,7,0],
+            [0,0,0,0,0,0,2,8,3],
+            [1,0,0,0,0,0,8,0,0],
+            [0,0,0,8,4,0,0,2,1],
+            [0,8,0,1,0,9,0,3,0],
+            [0,0,0,0,0,4,0,0,8],
+            [0,0,0,5,2,6,0,0,0],
+            [0,9,6,0,0,0,4,5,2]]
 
+soluciondificil3 = [[8,1,2,7,5,3,6,4,9],
+                    [9,4,3,6,8,2,1,7,5],
+                    [6,7,5,4,9,1,2,8,3],
+                    [1,5,4,2,3,7,8,9,6],
+                    [3,6,9,8,4,5,7,2,1],
+                    [2,8,7,1,6,9,5,3,4],
+                    [5,2,1,9,7,4,3,6,8],
+                    [4,3,8,5,2,6,9,1,7],
+                    [7,9,6,3,1,8,4,5,2]]
 
 
 # funcion timer
@@ -252,9 +261,9 @@ def reloj(seg, label):
 
 # dimensiones para la matriz
 
-row = 9
+row = 8
 
-column = 9
+column = 8
 
 # variables globales para el timer y verificar si puede seguir
 
@@ -329,8 +338,14 @@ def imprimir(entry):
     a.reverse()
    
     top()
-    
 a = [] #liata para el top 10
+def imprimir2(entry2):
+    global content2
+    content2 = eval(entry2.get())
+    #global pos
+    #pos = (content2)
+    
+
 
 def windowtop10(): #inserta en el top 10
     
@@ -375,10 +390,10 @@ def top():
 
 # boton del mejor jugador
 
-"""def mejorjugador1():
+def mejorjugador1():
     tp = Tk()
     tp.geometry("500x500")
-    messagebox.showinfo(message = sacarBest(),title = "Mejor jugador")"""
+    messagebox.showinfo(message = sacarBest(),title = "Mejor jugador")
     
     
 
@@ -402,10 +417,12 @@ def leer (archivo):
     return resultado
 
 def cargarArchivo():
-    global matrix
+
     f = open("mejoresjugadores.txt", "r")
     #ventana_principal.after(1000, timeL, label)
+    global matrix
     matrix = eval(f.read())
+    
     print(matrix)
     f.close()
     crearVentana()
@@ -608,42 +625,80 @@ def impMatriz():
 
 
 #coloca la matriz en la interfaz con colores y botones
-                
-def coord(x, y):
+def coord3(x, y):
     print("x:", x, "y:", y)
+    
     global pos
     pos = (x,y)
+    return (x,y)
     
-    return pos
     
 
-class BotonCoord(object):
+class mover_matriz(object):
     x = 0
     y = 0
     boton = None
 
-    def __init__(self, x, y, ventana_principal, matrix):
+    def __init__(self, x, y, ventana, matriz):
+        colores = {0: "white", 1: "cyan2", 2: "hotpink", 3: "mediumpurple1", 4: "seagreen1", 5: "coral", \
+               6: "gold", 7: "olivedrab1", 8: "yellow", 9: "violetred"}
+
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == 0:
+                    fontcolor = "white"
+                else:
+                    fontcolor = "black"
+        #global x
+        #global y
         self.x = x
         self.y = y
-        boton = Button(ventana_principal, text = matrix[y][x], command = lambda: ventana_principal.after(200, coord(self.x, self.y)))
+        boton = Button(ventana, text = matriz[x][y],fg=fontcolor, width=4, heigh=2, bg=colores[matrix[x][y]], font="Arial",command = lambda: ventana.after(200, coord3(self.x, self.y)))
         boton.grid(row = self.x, column = self.y)
 
 
 def botones(ventana, matriz):
+    #global j,i
     for i in range(len(matriz)):
         for j in range(len(matriz[i])):
-            b = BotonCoord(j, i, ventana_principal, matriz)
+            b = mover_matriz(j, i, ventana, matriz)               
+"""def coord(i,j,matrix):
+        
+        print("v")
+        x = i
+        y = j
+        print("x",x,"y",y)
+        global pos
+        pos = [x,y]
+        #global pos
+        #pos = [x,y]
 
 
+
+
+def mover_matriz(ventana_principal, matrix):
+    colores = {0: "white", 1: "cyan2", 2: "hotpink", 3: "mediumpurple1", 4: "seagreen1", 5: "coral", \
+               6: "gold", 7: "olivedrab1", 8: "yellow", 9: "violetred"}
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if matrix[i][j] == 0:
+                fontcolor = "white"
+            else:
+                fontcolor = "black"
+            global b
+            #matrix = [[i for i in range(9)] for j in range(9)]
+        
+            b = Button(ventana_principal, text=matrix[i][j], fg=fontcolor, width=4, heigh=2, bg=colores[matrix[i][j]], font="Arial",command = lambda: coord(i,j,matrix) )
+            b.grid(row=i, column=j)"""
 
 
 def columnas(matriz,pos):
     global col
     col = []
     for fila in matriz:
-        for num in fila:
-            if fila.index(num) == pos[1]:
-                col += [num]
+        """for num in fila:
+            if fila.index(num) == pos[1]:"""
+        col += [fila[pos[1]]]
    
     return col
 
@@ -651,9 +706,9 @@ def filas(matriz,pos):
     global fila
     for fila in matriz:
         if matriz[pos[0]] == fila:
-            break
+            return fila
     
-    return fila 
+    #return fila 
     
     
 def cuadrantes(matriz,pos):
@@ -708,27 +763,36 @@ def cuadrantes(matriz,pos):
     
 
     
-def moversudoku(matriz,e,pos,col,fila,cuadrante):
-    if e not in col:
-        if e not in fila:
-            if e not in cuadrante:
-                for f in matriz:
-                    if matriz.index(f) == pos[0]:
-                       if matriz[pos[0]][pos[1]]==0:
-                           matriz[pos[0]].remove(0)
-                        
-                           f.insert(pos[1],e)
+def moversudoku(matrix,e,pos,col,fila,cuadrante):
+    #global e
+    #global pos
+    #global col
+    #global fila
+    #global cuadrante
+    if e not in col and e not in fila and e not in cuadrante:
+        
+        for f in matrix:
+            if matrix.index(f) == pos[0]:
+               
+                   matrix[pos[0]].remove(matrix[pos[0]][pos[1]])
+                
+                   f.insert(pos[1],e)
+                   #mover_matriz(ventana_principal,matrix)
+                   botones(ventana_principal,matrix)
+                   print("llego")
+                           
     else:
-        print("messagebox error")
+        messagebox.showinfo("Error", "número no puede ir ahí")
+
     
 
 
 def perder():
     if 0 not in matrix:
         if matrix == solucion:
-            messagebox.showinfo("Felicidades, usted ha ganado")
+            messagebox.showinfo("Felicidades", "usted ha ganado")
         else:
-            messagebox.showinfo("Perdió,puede continuar o ver la solucion")
+            messagebox.showinfo("Perdió","puede continuar o ver la solucion")
 
 
 
@@ -800,19 +864,20 @@ def ventanaConfig():
                
     
     mainloop()
-    
+def solu():
+    mover_matriz(ventana_principal,solucion)
 def ventanaJuego():
     #crearRandom()
     #crearRandom()
 
     # Ventana principal
     global ventana_principal
-    ventana_principal = Tk()
+    #ventana_principal = Tk()
     #ventanajuego
 
-    botones(ventana_principal, matrix)
+    #botones(ventana_principal, matrix)
 
-    ventana_principal.mainloop()
+    #ventana_principal.mainloop()
 
     
     ventana_principal.geometry("1000x1000") #dimensiones
@@ -834,14 +899,21 @@ def ventanaJuego():
     timeL(l)
         
     movimiento = StringVar()
+    g = StringVar()
 
     #botones del juego
 
     entry = Entry(ventana_principal, fg="black", textvariable=movimiento)
-    entry.place(x=700, y=425)
+    entry.place(x=700, y=440)
 
     b = Button(ventana_principal, text="Inserte su nombre", command=lambda: ventana_principal.after(200, imprimir(entry))) #nombre del jugador
     b.place(x=650, y=420)
+
+    entry2 = Entry(ventana_principal, fg="black", textvariable=g)
+    entry2.place(x=800, y=440)
+
+    b2 = Button(ventana_principal, text="Inserte posición", command=lambda: ventana_principal.after(200, imprimir2(entry2))) #nombre del jugador
+    b2.place(x=850, y=420)
 
     top = Button(ventana_principal, text="Ver Top 10", command=lambda: ventana_principal.after(200, windowtop10)) #top10
     top.place(x=520, y=400)
@@ -855,37 +927,41 @@ def ventanaJuego():
     terminar = Button(ventana_principal, text="Terminar partida", command=lambda: ventana_principal.after(200, salir)) #termina partida
     terminar.place(x=480, y=300)
 
-    uno = Button(ventana_principal, text="1", command=lambda: ventana_principal.after(200, moversudoku(matriz,1,pos,col,fila,cuadrante))) #termina partida
+    solu = Button(ventana_principal, text="Ver solucion", command=lambda: ventana_principal.after(200, solu)) #termina partida
+    solu.place(x=480, y=330)
+
+
+    uno = Button(ventana_principal, text="1", command=lambda: ventana_principal.after(200, moversudoku(matrix,1,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     uno.place(x=680, y=320)
 
-    dos = Button(ventana_principal, text="2", command=lambda: ventana_principal.after(200, moversudoku(matriz,2,pos,col,fila,cuadrante))) #termina partida
+    dos = Button(ventana_principal, text="2", command=lambda: ventana_principal.after(200, moversudoku(matrix,2,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     dos.place(x=680, y=290)
 
-    tres = Button(ventana_principal, text="3", command=lambda: ventana_principal.after(200, moversudoku(matriz,3,pos,col,fila,cuadrante))) #termina partida
+    tres = Button(ventana_principal, text="3", command=lambda: ventana_principal.after(200, moversudoku(matrix,3,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     tres.place(x=680, y=260)
 
-    cuatro = Button(ventana_principal, text="4", command=lambda: ventana_principal.after(200, moversudoku(matriz,4,pos,col,fila,cuadrante))) #termina partida
+    cuatro = Button(ventana_principal, text="4", command=lambda: ventana_principal.after(200, moversudoku(matrix,4,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     cuatro.place(x=680, y=230)
 
-    cinco = Button(ventana_principal, text="5", command=lambda: ventana_principal.after(200, moversudoku(matriz,5,pos,col,fila,cuadrante))) #termina partida
+    cinco = Button(ventana_principal, text="5", command=lambda: ventana_principal.after(200, moversudoku(matrix,5,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos))) )#termina partida
     cinco.place(x=680, y=200)
 
-    seis = Button(ventana_principal, text="6", command=lambda: ventana_principal.after(200, moversudoku(matriz,6,pos,col,fila,cuadrante))) #termina partida
+    seis = Button(ventana_principal, text="6", command=lambda: ventana_principal.after(200, moversudoku(matrix,6,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #ermina partida
     seis.place(x=680, y=170)
 
-    siete = Button(ventana_principal, text="7", command=lambda: ventana_principal.after(200, moversudoku(matriz,7,pos,col,fila,cuadrante))) #termina partida
+    siete = Button(ventana_principal, text="7", command=lambda: ventana_principal.after(200, moversudoku(matrix,7,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     siete.place(x=680, y=140)
 
-    ocho = Button(ventana_principal, text="8", command=lambda: ventana_principal.after(200, moversudoku(matriz,8,pos,col,fila,cuadrante))) #termina partida
+    ocho = Button(ventana_principal, text="8", command=lambda: ventana_principal.after(200, moversudoku(matrix,8,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     ocho.place(x=680, y=110)
 
-    nueve = Button(ventana_principal, text="9", command=lambda: ventana_principal.after(200, moversudoku(matriz,9,pos,col,fila,cuadrante))) #termina partida
+    nueve = Button(ventana_principal, text="9", command=lambda: ventana_principal.after(200, moversudoku(matrix,9,pos,columnas(matrix,pos),filas(matrix,pos),cuadrantes(matrix,pos)))) #termina partida
     nueve.place(x=680, y=80)
 
     
-    #if mejorjugador:
-        #mj = Button(ventana_principal, text="Desplegar Mejor Jugador", command=lambda: ventana_principal.after(200, mejorjugador1)) #despliega el mejor jugador si
-        #mj.place(x=340, y=330)
+    
+    mj = Button(ventana_principal, text="Desplegar Mejor Jugador", command=lambda: ventana_principal.after(200, mejorjugador1)) #despliega el mejor jugador si
+    mj.place(x=340, y=330)
     #if not mejorjugador:
         #mj = Button(ventana_principal, text="Desplegar Mejor Jugador NO", command=lambda: ventana_principal.after(200, print("Mejor jugador es:NO "))) #mejor jug no
         #mj.place(x=320, y=430)
@@ -893,6 +969,8 @@ def ventanaJuego():
         
     
     #mover_matriz(ventana_principal, matrix)
+    #mover_matriz(ventana_principal, matrix)
+    botones(ventana_principal,matrix)
 
 
     mainloop()
