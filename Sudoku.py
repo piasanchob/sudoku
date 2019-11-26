@@ -33,7 +33,7 @@ pygame.mixer.pre_init(44100,16,2,4096)
 
 #size = (width, height)
 
-pygame.mixer.music.load("deku.mp3")
+pygame.mixer.music.load("tetris.mp3")
 pygame.mixer.music.set_volume(1)
 pygame.mixer.music.play(-1)
 
@@ -426,7 +426,7 @@ def cargarArchivo():
     print(matrix)
     f.close()
     crearVentana()
-    moverMatriz(ventana_principal,matrix)
+    #moverMatriz(ventana_principal,matrix)
 
 def cargarArchivo2():
     global a
@@ -450,7 +450,7 @@ def config():
 # se despliega el manual de usuario
 
 def ayuda():
-    wb.open_new(r"C:\Users\user\Documents\programacion William\progra\programa1_piasancho\manual_de_usuario_2048.pdf")
+    wb.open_new(r"C:\Users\user\Documents\programacion William\programa3_piasancho\sudoku\manual_de_usuario_sudoku.pdf")
 
     
        
@@ -547,9 +547,9 @@ def window():
                           indicatoron=0,
                           width=20,
                           padx=20,
-                          variable=3,
+                          variable=9,
                           command=None,
-                          value=3)
+                          value=9)
     
     prueba.pack()
     prueba2.pack()
@@ -600,8 +600,8 @@ def crearMatrixmedio():
     
     #global solucion
     matrix = diccmedio[random.randint(1,3)]
-    global matrix2
-    matrix2 = matrix
+    #global matrix2
+    #matrix2 = matrix
     if matrix == medio1:
         #global solucion
         solucion = solucionmedio1
