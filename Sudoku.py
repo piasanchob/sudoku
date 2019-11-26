@@ -450,7 +450,7 @@ def config():
 # se despliega el manual de usuario
 
 def ayuda():
-    wb.open_new(r"C:\Users\user\Documents\programacion William\programa3_piasancho\sudoku\manual_de_usuario_sudoku.pdf")
+    wb.open_new(r"C:\Users\user\Documents\programacion William\programa3_piasancho\programa_3_pia_sancho\manual_de_usuario_sudoku.pdf")
 
     
        
@@ -600,8 +600,8 @@ def crearMatrixmedio():
     
     #global solucion
     matrix = diccmedio[random.randint(1,3)]
-    #global matrix2
-    #matrix2 = matrix
+    global matrix2
+    matrix2 = matrix
     if matrix == medio1:
         #global solucion
         solucion = solucionmedio1
