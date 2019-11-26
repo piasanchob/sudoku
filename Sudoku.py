@@ -579,33 +579,55 @@ def crearMatrixfacil():
     diccfacil = {1:facil1,2:facil2,3:facil3}
     global matrix
     global solucion
+    #global solucion
+    
     matrix = diccfacil[random.randint(1,3)]
+    global matrix2
+    matrix2 = matrix
     if matrix == facil1:
+        #global solucion
         solucion = solucionfacil1
     if matrix == facil2:
+        #global solucion
         solucion = solucionfacil2
     else:
+        #global solucion
         solucion = solucionfacil3
 def crearMatrixmedio():
     diccmedio = {1:medio1,2:medio2,3:medio3}
     global matrix
+    global solucion
+    
+    #global solucion
     matrix = diccmedio[random.randint(1,3)]
+    global matrix2
+    matrix2 = matrix
     if matrix == medio1:
+        #global solucion
         solucion = solucionmedio1
     if matrix == medio2:
+        #global solucion
         solucion = solucionmedio2
     else:
+        #global solucion
         solucion = solucionmedio3
 def crearMatrixdificil():
     diccdificil = {1:dif,2:dificil2,3:dificil3}
     
     global matrix
+    global solucion
+  
     matrix = diccdificil[random.randint(1,3)]
+    global matrix2
+    matrix2 = matrix
     if matrix == dif:
+        #global solucion
         solucion = soluciondificil1
     if matrix == dificil2:
+        #global solucion
         solucion = soluciondificil2
     else:
+        #global solucion
         solucion = soluciondificil3
 
       
@@ -827,7 +849,8 @@ def timeL(label):
     label.config(text=textoTiempo)
     tiempo += 1
     if tiempo == 600:
-        perder() == True
+        meesagebox.showinfo("Se acabó el tiempo")
+        perder(matrix) == True
     print(tiempo)
     ventana_principal.after(1000, timeL, label)
 
@@ -879,7 +902,7 @@ def ventanaConfig():
     
     mainloop()
 def solu():
-    mover_matriz(ventana_principal,solucion)
+    botones(ventana_principal,solucion)
 def ventanaJuego():
     #crearRandom()
     #crearRandom()
@@ -923,11 +946,11 @@ def ventanaJuego():
     b = Button(ventana_principal, text="Inserte su nombre", command=lambda: ventana_principal.after(200, imprimir(entry))) #nombre del jugador
     b.place(x=650, y=420)
 
-    entry2 = Entry(ventana_principal, fg="black", textvariable=g)
-    entry2.place(x=800, y=440)
+    #entry2 = Entry(ventana_principal, fg="black", textvariable=g)
+    #entry2.place(x=800, y=440)
 
-    b2 = Button(ventana_principal, text="Inserte posición", command=lambda: ventana_principal.after(200, imprimir2(entry2))) #nombre del jugador
-    b2.place(x=850, y=420)
+   #b2 = Button(ventana_principal, text="Ver solucion 1", command=lambda: ventana_principal.after(200, botones(ventana_principal,matrix2))) #nombre del jugador
+    #b2.place(x=850, y=420)
 
     top = Button(ventana_principal, text="Ver Top 10", command=lambda: ventana_principal.after(200, windowtop10)) #top10
     top.place(x=520, y=400)
@@ -941,7 +964,7 @@ def ventanaJuego():
     terminar = Button(ventana_principal, text="Terminar partida", command=lambda: ventana_principal.after(200, salir)) #termina partida
     terminar.place(x=480, y=300)
 
-    solu = Button(ventana_principal, text="Ver solucion", command=lambda: ventana_principal.after(200, solu)) #termina partida
+    solu = Button(ventana_principal, text="Ver solucion ", command=lambda: ventana_principal.after(200, botones(ventana_principal,solucion))) #termina partida
     solu.place(x=480, y=330)
 
 
@@ -974,8 +997,8 @@ def ventanaJuego():
 
     
     
-    mj = Button(ventana_principal, text="Desplegar Mejor Jugador", command=lambda: ventana_principal.after(200, mejorjugador1)) #despliega el mejor jugador si
-    mj.place(x=340, y=330)
+    mj = Button(ventana_principal, text="Mejor Jugador", command=lambda: ventana_principal.after(200, mejorjugador1)) #despliega el mejor jugador si
+    mj.place(x=540, y=430)
     #if not mejorjugador:
         #mj = Button(ventana_principal, text="Desplegar Mejor Jugador NO", command=lambda: ventana_principal.after(200, print("Mejor jugador es:NO "))) #mejor jug no
         #mj.place(x=320, y=430)
